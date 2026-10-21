@@ -113,28 +113,28 @@ function Cards({ p, save }) {
   );
 }
 
-// function Plan({ p, save }) {
-//   const [d, setD] = useState(p.plan?.d || ""), [h, setH] = useState(p.plan?.h || 6), [out, setOut] = useState(null);
-//   const make = () => {
-//     const days = Math.ceil((new Date(d) - Date.now()) / DAY);
-//     if (!(days > 0)) return setOut("Pick an exam date in the future.");
-//     const weeks = Math.max(1, Math.ceil(days / 7)), total = weeks * h;
-//     const w = T.map((t, i) => ({ t, i, w: 1.3 - (pc(p.results[i]) ?? 0) / 100 })).sort((a, b) => b.w - a.w), sum = w.reduce((s, x) => s + x.w, 0);
-//     setOut({ days, weeks, lines: w.map((x) => `${x.t}: ${((total * 0.85 * x.w) / sum).toFixed(1)} hours ` + (pc(p.results[x.i]) === null ? "(not tested yet)" : `(your score ${pc(p.results[x.i])}%)`)),
-//       wk: Array.from({ length: weeks }, (_, k) => (k === weeks - 1 && weeks > 1 ? `Week ${weeks}: mixed quizzes, flashcards, then rest.` : `Week ${k + 1}: focus on ${w[k % w.length].t}, then ${w[(k + 1) % w.length].t}.`)) });
-//     save({ ...p, plan: { d, h } });
-//   };
-//   return (
-//     <section><h2>Build your plan</h2>
-//       <label>Exam date<input type="date" value={d} onChange={(e) => setD(e.target.value)} /></label>
-//       <label>Study hours per week<input type="number" min="1" max="40" value={h} onChange={(e) => setH(+e.target.value)} /></label>
-//       <button className="big" onClick={make}>Create my plan</button>
-//       {typeof out === "string" && <p className="err">{out}</p>}
-//       {out && typeof out === "object" && (<div><p>{out.days} days left, about {out.weeks} weeks. Weak topics get the most time; 15% is kept for revision.</p>
-//         <ul>{out.lines.map((l) => <li key={l}>{l}</li>)}</ul><h3>Week by week</h3><ul>{out.wk.map((l) => <li key={l}>{l}</li>)}</ul></div>)}
-//     </section>
-//   );
-// }
+function Plan({ p, save }) {
+  const [d, setD] = useState(p.plan?.d || ""), [h, setH] = useState(p.plan?.h || 6), [out, setOut] = useState(null);
+  const make = () => {
+    const days = Math.ceil((new Date(d) - Date.now()) / DAY);
+    if (!(days > 0)) return setOut("Pick an exam date in the future.");
+    const weeks = Math.max(1, Math.ceil(days / 7)), total = weeks * h;
+    const w = T.map((t, i) => ({ t, i, w: 1.3 - (pc(p.results[i]) ?? 0) / 100 })).sort((a, b) => b.w - a.w), sum = w.reduce((s, x) => s + x.w, 0);
+    setOut({ days, weeks, lines: w.map((x) => `${x.t}: ${((total * 0.85 * x.w) / sum).toFixed(1)} hours ` + (pc(p.results[x.i]) === null ? "(not tested yet)" : `(your score ${pc(p.results[x.i])}%)`)),
+      wk: Array.from({ length: weeks }, (_, k) => (k === weeks - 1 && weeks > 1 ? `Week ${weeks}: mixed quizzes, flashcards, then rest.` : `Week ${k + 1}: focus on ${w[k % w.length].t}, then ${w[(k + 1) % w.length].t}.`)) });
+    save({ ...p, plan: { d, h } });
+  };
+  return (
+    <section><h2>Build your plan</h2>
+      <label>Exam date<input type="date" value={d} onChange={(e) => setD(e.target.value)} /></label>
+      <label>Study hours per week<input type="number" min="1" max="40" value={h} onChange={(e) => setH(+e.target.value)} /></label>
+      <button className="big" onClick={make}>Create my plan</button>
+      {typeof out === "string" && <p className="err">{out}</p>}
+      {out && typeof out === "object" && (<div><p>{out.days} days left, about {out.weeks} weeks. Weak topics get the most time; 15% is kept for revision.</p>
+        <ul>{out.lines.map((l) => <li key={l}>{l}</li>)}</ul><h3>Week by week</h3><ul>{out.wk.map((l) => <li key={l}>{l}</li>)}</ul></div>)}
+    </section>
+  );
+}
 
 function Buddy({ seed, clear }) {
   const [m, setM] = useState([]), [t, setT] = useState(""), [lang, setL] = useState("English"), [busy, setB] = useState(false);
