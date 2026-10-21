@@ -32,24 +32,24 @@ export default function App() {
   );
 }
 
-// function Auth({ onDone }) {
-//   const [m, setM] = useState("register"), [f, setF] = useState({}), [e, setE] = useState("");
-//   const set = (k) => (x) => setF({ ...f, [k]: x.target.value });
-//   const go = async () => { const d = await api("/api/auth/" + m, "POST", f); d.error ? setE(d.error) : onDone(d); };
-//   return (
-//     <main className="c auth">
-//       <h1>AZPREP</h1>
-//       <p className="lead">Pass Azure Fundamentals (AZ-900) with quizzes that explain every answer, flashcards that return what you forget, a plan built around your exam date, and an AI buddy that uses everyday African examples.</p>
-//       {m === "register" && <input placeholder="Your name" onChange={set("name")} />}
-//       <input placeholder="Email" type="email" onChange={set("email")} />
-//       <input placeholder="Password (6+ characters)" type="password" onChange={set("password")} />
-//       {e && <p className="err">{e}</p>}
-//       <button className="big" onClick={go}>{m === "login" ? "Log in" : "Create free account"}</button>
-//       <button className="ghost" onClick={() => { setM(m === "login" ? "register" : "login"); setE(""); }}>{m === "login" ? "New here? Create an account" : "Have an account? Log in"}</button>
-//       <p><small>Unofficial study tool. Not affiliated with Microsoft.</small></p>
-//     </main>
-//   );
-// }
+function Auth({ onDone }) {
+  const [m, setM] = useState("register"), [f, setF] = useState({}), [e, setE] = useState("");
+  const set = (k) => (x) => setF({ ...f, [k]: x.target.value });
+  const go = async () => { const d = await api("/api/auth/" + m, "POST", f); d.error ? setE(d.error) : onDone(d); };
+  return (
+    <main className="c auth">
+      <h1>AZPREP</h1>
+      <p className="lead">Pass Azure Fundamentals (AZ-900) with quizzes that explain every answer, flashcards that return what you forget, a plan built around your exam date, and an AI buddy that uses everyday African examples.</p>
+      {m === "register" && <input placeholder="Your name" onChange={set("name")} />}
+      <input placeholder="Email" type="email" onChange={set("email")} />
+      <input placeholder="Password (6+ characters)" type="password" onChange={set("password")} />
+      {e && <p className="err">{e}</p>}
+      <button className="big" onClick={go}>{m === "login" ? "Log in" : "Create free account"}</button>
+      <button className="ghost" onClick={() => { setM(m === "login" ? "register" : "login"); setE(""); }}>{m === "login" ? "New here? Create an account" : "Have an account? Log in"}</button>
+      <p><small>Unofficial study tool. Not affiliated with Microsoft.</small></p>
+    </main>
+  );
+}
 
 // function Home({ p, go }) {
 //   const rows = T.map((t, i) => [t, pc(p.results[i]), p.results[i]?.[1] || 0]);
