@@ -51,23 +51,23 @@ function Auth({ onDone }) {
   );
 }
 
-// function Home({ p, go }) {
-//   const rows = T.map((t, i) => [t, pc(p.results[i]), p.results[i]?.[1] || 0]);
-//   const done = rows.filter((r) => r[1] !== null), tot = rows.reduce((s, r) => s + r[2], 0);
-//   const avg = done.length ? Math.round(done.reduce((s, r) => s + r[1], 0) / done.length) : 0;
-//   const msg = tot < 20 ? "Answer at least 20 questions for a reliable reading." : avg >= 75 && done.length === T.length ? "You look ready. Book the exam." : avg >= 60 ? "Getting close. Drill the red and amber topics." : "Keep revising. Start with your weakest topic.";
-//   return (
-//     <section>
-//       <div className="score"><div className="ring" style={{ "--v": avg }}><b>{avg}%</b></div><div><h2>Exam readiness</h2><p>{msg}</p><small>{tot} questions answered</small></div></div>
-//       {rows.map(([t, v, n]) => (
-//         <div key={t} className="row"><span>{t}</span>
-//           <div className="bar"><i style={{ width: (v || 0) + "%", background: v >= 75 ? "#22c55e" : v >= 50 ? "#f59e0b" : "#ef4444" }} /></div>
-//           <em>{v === null ? "not tried" : v + "%"} ({n})</em></div>
-//       ))}
-//       <button className="big" onClick={() => go("quiz")}>Practise now</button>
-//     </section>
-//   );
-// }
+function Home({ p, go }) {
+  const rows = T.map((t, i) => [t, pc(p.results[i]), p.results[i]?.[1] || 0]);
+  const done = rows.filter((r) => r[1] !== null), tot = rows.reduce((s, r) => s + r[2], 0);
+  const avg = done.length ? Math.round(done.reduce((s, r) => s + r[1], 0) / done.length) : 0;
+  const msg = tot < 20 ? "Answer at least 20 questions for a reliable reading." : avg >= 75 && done.length === T.length ? "You look ready. Book the exam." : avg >= 60 ? "Getting close. Drill the red and amber topics." : "Keep revising. Start with your weakest topic.";
+  return (
+    <section>
+      <div className="score"><div className="ring" style={{ "--v": avg }}><b>{avg}%</b></div><div><h2>Exam readiness</h2><p>{msg}</p><small>{tot} questions answered</small></div></div>
+      {rows.map(([t, v, n]) => (
+        <div key={t} className="row"><span>{t}</span>
+          <div className="bar"><i style={{ width: (v || 0) + "%", background: v >= 75 ? "#22c55e" : v >= 50 ? "#f59e0b" : "#ef4444" }} /></div>
+          <em>{v === null ? "not tried" : v + "%"} ({n})</em></div>
+      ))}
+      <button className="big" onClick={() => go("quiz")}>Practise now</button>
+    </section>
+  );
+}
 
 // function Quiz({ p, save, ask }) {
 //   const [t, setT] = useState(-1), [qs, setQs] = useState(null), [i, setI] = useState(0), [pick, setPick] = useState(null), [s, setS] = useState(0);
