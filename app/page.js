@@ -98,20 +98,20 @@ function Quiz({ p, save, ask }) {
   );
 }
 
-// function Cards({ p, save }) {
-//   const [flip, setFlip] = useState(false), now = Date.now();
-//   const due = C.map((c, i) => ({ c, i, s: p.cards[i] || { b: 0, d: 0 } })).filter((x) => x.s.d <= now).sort((a, b) => a.s.b - b.s.b);
-//   const rate = (x, good) => { const b = good ? Math.min(x.s.b + 1, 5) : 0; save({ ...p, cards: { ...p.cards, [x.i]: { b, d: good ? now + GAP[b] * DAY : now + 3e4 } } }); setFlip(false); };
-//   if (!due.length) return <section><h2>All caught up</h2><p>Cards you missed come back soon; cards you know return after longer gaps. Take a quiz while you wait.</p></section>;
-//   const x = due[0];
-//   return (
-//     <section><small>{T[x.c[0]]} · {due.length} due · box {x.s.b + 1} of 6</small>
-//       <div className={"card" + (flip ? " back" : "")} onClick={() => setFlip(!flip)}>{flip ? x.c[2] : x.c[1]}</div>
-//       <small>{flip ? "How did you do?" : "Tap the card to see the answer"}</small>
-//       {flip && <div className="two"><button className="bad" onClick={() => rate(x, 0)}>Again</button><button className="good" onClick={() => rate(x, 1)}>Got it</button></div>}
-//     </section>
-//   );
-// }
+function Cards({ p, save }) {
+  const [flip, setFlip] = useState(false), now = Date.now();
+  const due = C.map((c, i) => ({ c, i, s: p.cards[i] || { b: 0, d: 0 } })).filter((x) => x.s.d <= now).sort((a, b) => a.s.b - b.s.b);
+  const rate = (x, good) => { const b = good ? Math.min(x.s.b + 1, 5) : 0; save({ ...p, cards: { ...p.cards, [x.i]: { b, d: good ? now + GAP[b] * DAY : now + 3e4 } } }); setFlip(false); };
+  if (!due.length) return <section><h2>All caught up</h2><p>Cards you missed come back soon; cards you know return after longer gaps. Take a quiz while you wait.</p></section>;
+  const x = due[0];
+  return (
+    <section><small>{T[x.c[0]]} · {due.length} due · box {x.s.b + 1} of 6</small>
+      <div className={"card" + (flip ? " back" : "")} onClick={() => setFlip(!flip)}>{flip ? x.c[2] : x.c[1]}</div>
+      <small>{flip ? "How did you do?" : "Tap the card to see the answer"}</small>
+      {flip && <div className="two"><button className="bad" onClick={() => rate(x, 0)}>Again</button><button className="good" onClick={() => rate(x, 1)}>Got it</button></div>}
+    </section>
+  );
+}
 
 // function Plan({ p, save }) {
 //   const [d, setD] = useState(p.plan?.d || ""), [h, setH] = useState(p.plan?.h || 6), [out, setOut] = useState(null);
