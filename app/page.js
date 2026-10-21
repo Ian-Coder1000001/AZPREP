@@ -69,34 +69,34 @@ function Home({ p, go }) {
   );
 }
 
-// function Quiz({ p, save, ask }) {
-//   const [t, setT] = useState(-1), [qs, setQs] = useState(null), [i, setI] = useState(0), [pick, setPick] = useState(null), [s, setS] = useState(0);
-//   const start = () => { setQs(Q.filter((q) => t < 0 || q[0] === t).sort(() => Math.random() - 0.5).slice(0, 10)); setI(0); setPick(null); setS(0); };
-//   if (!qs) return (
-//     <section><h2>What do you want to practise?</h2><p>10 random questions per round, drawn from {Q.length} in the bank. Pick a topic:</p>
-//       <div className="chips">{[-1, ...T.keys()].map((k) => <button key={k} className={"chip" + (t === k ? " on" : "")} onClick={() => setT(k)}>{k < 0 ? "Mixed" : T[k]} <small>{Q.filter((q) => k < 0 || q[0] === k).length}</small></button>)}</div>
-//       <button className="big" onClick={start}>Start quiz</button></section>
-//   );
-//   if (i >= qs.length) return <section><h2>You scored {s} out of {qs.length}</h2><button className="big" onClick={() => setQs(null)}>Another round</button></section>;
-//   const q = qs[i];
-//   const choose = (k) => {
-//     if (pick !== null) return;
-//     setPick(k);
-//     const r = p.results[q[0]] || [0, 0], hit = k === q[3] ? 1 : 0;
-//     save({ ...p, results: { ...p.results, [q[0]]: [r[0] + hit, r[1] + 1] } });
-//     setS(s + hit);
-//   };
-//   return (
-//     <section><div className="prog"><i style={{ width: (i / qs.length) * 100 + "%" }} /></div><small>{T[q[0]]} · question {i + 1} of {qs.length}</small><h2>{q[1]}</h2>
-//       {q[2].map((o, k) => <button key={k} className={"opt " + (pick !== null ? (k === q[3] ? "good" : k === pick ? "bad" : "") : "")} onClick={() => choose(k)}>{o}</button>)}
-//       {pick !== null && (
-//         <div className="exp"><b>{pick === q[3] ? "Correct" : "Not quite"}</b><p>{q[4]}</p>
-//           <button className="ghost" onClick={() => ask("Explain simply: " + q[1] + " The correct answer is: " + q[2][q[3]])}>Explain it with an everyday example</button>
-//           <button className="big" onClick={() => { setI(i + 1); setPick(null); }}>Next question</button></div>
-//       )}
-//     </section>
-//   );
-// }
+function Quiz({ p, save, ask }) {
+  const [t, setT] = useState(-1), [qs, setQs] = useState(null), [i, setI] = useState(0), [pick, setPick] = useState(null), [s, setS] = useState(0);
+  const start = () => { setQs(Q.filter((q) => t < 0 || q[0] === t).sort(() => Math.random() - 0.5).slice(0, 10)); setI(0); setPick(null); setS(0); };
+  if (!qs) return (
+    <section><h2>What do you want to practise?</h2><p>10 random questions per round, drawn from {Q.length} in the bank. Pick a topic:</p>
+      <div className="chips">{[-1, ...T.keys()].map((k) => <button key={k} className={"chip" + (t === k ? " on" : "")} onClick={() => setT(k)}>{k < 0 ? "Mixed" : T[k]} <small>{Q.filter((q) => k < 0 || q[0] === k).length}</small></button>)}</div>
+      <button className="big" onClick={start}>Start quiz</button></section>
+  );
+  if (i >= qs.length) return <section><h2>You scored {s} out of {qs.length}</h2><button className="big" onClick={() => setQs(null)}>Another round</button></section>;
+  const q = qs[i];
+  const choose = (k) => {
+    if (pick !== null) return;
+    setPick(k);
+    const r = p.results[q[0]] || [0, 0], hit = k === q[3] ? 1 : 0;
+    save({ ...p, results: { ...p.results, [q[0]]: [r[0] + hit, r[1] + 1] } });
+    setS(s + hit);
+  };
+  return (
+    <section><div className="prog"><i style={{ width: (i / qs.length) * 100 + "%" }} /></div><small>{T[q[0]]} · question {i + 1} of {qs.length}</small><h2>{q[1]}</h2>
+      {q[2].map((o, k) => <button key={k} className={"opt " + (pick !== null ? (k === q[3] ? "good" : k === pick ? "bad" : "") : "")} onClick={() => choose(k)}>{o}</button>)}
+      {pick !== null && (
+        <div className="exp"><b>{pick === q[3] ? "Correct" : "Not quite"}</b><p>{q[4]}</p>
+          <button className="ghost" onClick={() => ask("Explain simply: " + q[1] + " The correct answer is: " + q[2][q[3]])}>Explain it with an everyday example</button>
+          <button className="big" onClick={() => { setI(i + 1); setPick(null); }}>Next question</button></div>
+      )}
+    </section>
+  );
+}
 
 // function Cards({ p, save }) {
 //   const [flip, setFlip] = useState(false), now = Date.now();
